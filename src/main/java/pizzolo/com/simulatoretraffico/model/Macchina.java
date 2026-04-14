@@ -10,6 +10,9 @@ public class Macchina {
     //statistiche della macchina
     private final double MAX_VELOCITA = 100;
     private double velocitaStandard;
+    //velocita utilizzate per aggiornare la posizione
+    private double velocitaX;
+    private double velocitaY;
     //dimensioni fisse
     private final double HEIGHT = 30;
     private final double WIDTH = 30;
@@ -22,7 +25,9 @@ public class Macchina {
     public Macchina(double posX, double posY) {
         this.posX = posX;
         this.posY = posY;
-        this.velocitaStandard = 50;
+        this.velocitaStandard = 10;
+        this.velocitaX = 3;
+        this.velocitaY = 3;
         //appena creata e in movimento
         this.isMove = true;
     }
@@ -59,12 +64,27 @@ public class Macchina {
         isMove = move;
     }
 
+    public void aggiorna(double maxWidth, double maxHeight) {
+        posX += velocitaX;
+        posY += velocitaY;
+
+        if (posX <= 0 || posY <= 0) {
+            posX = maxWidth / 2;
+            posY = maxHeight / 2;
+        }
+        if (posX >= maxWidth || posY >= maxHeight) {
+            posX = maxWidth / 2;
+            posY = maxHeight / 2;
+        }
+    }
+
     /**
      * metodo che disegna la macchina
+     *
      * @param gc graphicontext del canvas
      */
     public void disegna(GraphicsContext gc) {
         gc.setFill(Color.RED);
-        gc.fillOval(posX,posY, WIDTH, HEIGHT);
+        gc.fillOval(posX, posY, WIDTH, HEIGHT);
     }
 }
