@@ -4,14 +4,15 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 /**
- * classe che gestisce la macchina
+ * classe che gestisce la macchina e le sue posizioni
  */
 public class Macchina {
     //statistiche della macchina
     private final double MAX_VELOCITA = 100;
     private double velocitaStandard;
     //velocita utilizzate per aggiornare la posizione
-    private double velocitaX;
+    private double velocitaX; //velocita orizzontale
+    //velocita verticale
     private double velocitaY;
     //dimensioni fisse
     private final double HEIGHT = 30;
@@ -26,8 +27,8 @@ public class Macchina {
         this.posX = posX;
         this.posY = posY;
         this.velocitaStandard = 10;
-        this.velocitaX = 3;
-        this.velocitaY = 3;
+        this.velocitaX = -12;
+        this.velocitaY = 0;
         //appena creata e in movimento
         this.isMove = true;
     }
@@ -64,17 +65,41 @@ public class Macchina {
         isMove = move;
     }
 
+    /**
+     * aggiorna la posizione della macchina ogni volta
+     * controlla i bordi del canvas
+     *
+     * @param maxWidth  larghezza massima per la gestione dei limiti
+     * @param maxHeight altezza massima per la gestione dei limiti
+     */
     public void aggiorna(double maxWidth, double maxHeight) {
         posX += velocitaX;
         posY += velocitaY;
 
-        if (posX <= 0 || posY <= 0) {
-            posX = maxWidth / 2;
-            posY = maxHeight / 2;
+        /*
+
+        RIMBALZO PALLINA
+
+        if (posX <= 0 || posX + WIDTH >= maxWidth) velocitaX = -velocitaX;
+        if (posY <= 0 || posY + HEIGHT >= maxHeight) velocitaY = -velocitaY;
+
+        */
+
+        //controllo bordo superiore prendendo in causa la  grandezza
+        if (posY + HEIGHT < 0) {
+            posY = maxHeight;
         }
-        if (posX >= maxWidth || posY >= maxHeight) {
-            posX = maxWidth / 2;
-            posY = maxHeight / 2;
+        //controllo bordo inferiore prendendo in causa la grandezza
+        if (posY - HEIGHT> maxHeight) {
+            posY = 0;
+        }
+
+        if (posX - WIDTH < 0){
+            posX = maxWidth;
+        }
+        //todo controllare bordo destro
+        if (posY > maxWidth){
+            posX = 0;
         }
     }
 
