@@ -11,6 +11,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#aggiungiMacchina" text="Aggiungi macchina" />
              <Button mnemonicParsing="false" onAction="#eliminaMacchina" text="Elimina macchina" />
+             <Button mnemonicParsing="false" onAction="#avviaSimulazione" text="Avvia simulazione" />
          </children>
       </HBox>
    </children>

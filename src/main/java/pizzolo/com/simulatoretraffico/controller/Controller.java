@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import pizzolo.com.simulatoretraffico.model.GestioneMovimento;
 import pizzolo.com.simulatoretraffico.model.Macchina;
 
-import java.util.ArrayList;
 
 public class Controller {
     @FXML
@@ -28,7 +27,6 @@ public class Controller {
         gestioneMovimento = new GestioneMovimento();
     }
 
-
     /**
      * metodo che disegna una macchina e salva in un array
      * ogni macchina disegnata ha una distanza uguale, ogni volta calcolata
@@ -48,7 +46,7 @@ public class Controller {
     }
 
     /**
-     * controlla se l'array e vuoto
+     * Controlla se l'array e vuoto
      * metodo che elimina l'ultima macchina aggiunta ridisegnando il canvas
      */
     @FXML
@@ -62,5 +60,10 @@ public class Controller {
         for (Macchina m : gestioneMovimento.getMacchineCanvas()) {
             m.disegna(gc);
         }
+    }
+
+    @FXML
+    public void avviaSimulazione(){
+        //TODO
     }
 }
