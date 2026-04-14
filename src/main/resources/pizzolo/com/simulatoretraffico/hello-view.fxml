@@ -4,15 +4,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="root" alignment="CENTER" prefHeight="709.0" prefWidth="972.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/17.0.12" fx:controller="pizzolo.com.simulatoretraffico.controller.Controller">
-   <children>
-      <Canvas fx:id="canvas" height="597.0" width="972.0" />
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-         <children>
-            <Button mnemonicParsing="false" onAction="#aggiungiMacchina" text="Aggiungi macchina" />
-             <Button mnemonicParsing="false" onAction="#eliminaMacchina" text="Elimina macchina" />
-             <Button mnemonicParsing="false" onAction="#avviaSimulazione" text="Avvia simulazione" />
-         </children>
-      </HBox>
-   </children>
+<VBox fx:id="root" alignment="CENTER" prefHeight="709.0" prefWidth="972.0" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns="http://javafx.com/javafx/17.0.12" fx:controller="pizzolo.com.simulatoretraffico.controller.Controller">
+    <children>
+        <Canvas fx:id="canvas" height="597.0" width="972.0"/>
+        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+            <children>
+                <Button mnemonicParsing="false" onAction="#aggiungiMacchina" text="Aggiungi macchina"/>
+                <Button mnemonicParsing="false" onAction="#eliminaMacchina" text="Elimina macchina"/>
+                <Button mnemonicParsing="false" onAction="#avviaSimulazione" text="Avvia simulazione"/>
+            </children>
+        </HBox>
+    </children>
 </VBox>

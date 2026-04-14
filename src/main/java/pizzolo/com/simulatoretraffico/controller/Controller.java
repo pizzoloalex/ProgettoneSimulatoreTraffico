@@ -63,8 +63,11 @@ public class Controller {
         }
     }
 
+    /**
+     * metodo che avvia la simulazione
+     */
     @FXML
-    public void avviaSimulazione(){
+    public void avviaSimulazione() {
         //TODO
         gestioneMovimento.start();
     }
