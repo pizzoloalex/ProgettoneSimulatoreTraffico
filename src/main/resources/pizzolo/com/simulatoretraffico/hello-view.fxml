@@ -10,6 +10,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
          <children>
             <Button mnemonicParsing="false" onAction="#aggiungiMacchina" text="Aggiungi macchina" />
+             <Button mnemonicParsing="false" onAction="#eliminaMacchina" text="Elimina macchina" />
          </children>
       </HBox>
    </children>
