@@ -24,7 +24,7 @@ public class Controller {
 
     public void initialize() {
         gc = canvas.getGraphicsContext2D();
-        gestioneMovimento = new GestioneMovimento();
+        gestioneMovimento = new GestioneMovimento(gc);
     }
 
     /**
@@ -56,6 +56,7 @@ public class Controller {
         }
         gestioneMovimento.getMacchineCanvas().removeLast();
         numMacchina--;
+        dist -= 60;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
         for (Macchina m : gestioneMovimento.getMacchineCanvas()) {
             m.disegna(gc);
@@ -65,5 +66,6 @@ public class Controller {
     @FXML
     public void avviaSimulazione(){
         //TODO
+        gestioneMovimento.start();
     }
 }
