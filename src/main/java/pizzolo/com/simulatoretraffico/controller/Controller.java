@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.VBox;
+import pizzolo.com.simulatoretraffico.model.GestioneMovimento;
 import pizzolo.com.simulatoretraffico.model.Macchina;
 
 import java.util.ArrayList;
@@ -18,38 +19,47 @@ public class Controller {
     private Macchina macchina;
     //tiene il conto di quante macchine ci sono
     private int numMacchina;
-    private ArrayList<Macchina> macchineCanvas;
+    private GestioneMovimento gestioneMovimento;
+    private double height;
+    private int dist;
 
     public void initialize() {
         gc = canvas.getGraphicsContext2D();
-        macchineCanvas = new ArrayList<>();
+        gestioneMovimento = new GestioneMovimento();
     }
 
 
     /**
      * metodo che disegna una macchina e salva in un array
+     * ogni macchina disegnata ha una distanza uguale, ogni volta calcolata
      */
     @FXML
     public void aggiungiMacchina() {
-        macchina = new Macchina(canvas.getWidth() / 2, canvas.getHeight() / 2);
-        macchineCanvas.add(macchina);
+        dist += 60;
+        System.out.println("distanza:" + dist);
+        height = (canvas.getHeight() / 2) + dist;
+        System.out.println(height);
+        macchina = new Macchina(canvas.getWidth() / 2, height);
+        gestioneMovimento.getMacchineCanvas().add(macchina);
         macchina.disegna(gc);
         //salva la macchina appena disegnata
         numMacchina++;
+        System.out.println(numMacchina);
     }
 
     /**
+     * controlla se l'array e vuoto
      * metodo che elimina l'ultima macchina aggiunta ridisegnando il canvas
      */
     @FXML
     public void eliminaMacchina() {
-        if (macchineCanvas.isEmpty()) {
+        if (gestioneMovimento.getMacchineCanvas().isEmpty()) {
             return;
         }
-        macchineCanvas.removeLast();
+        gestioneMovimento.getMacchineCanvas().removeLast();
         numMacchina--;
         gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
-        for (Macchina m : macchineCanvas) {
+        for (Macchina m : gestioneMovimento.getMacchineCanvas()) {
             m.disegna(gc);
         }
     }
