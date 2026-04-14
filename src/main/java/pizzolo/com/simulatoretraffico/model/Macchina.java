@@ -7,11 +7,13 @@ import javafx.scene.paint.Color;
  * classe che gestisce la macchina
  */
 public class Macchina {
+    //statistiche della macchina
     private final double MAX_VELOCITA = 100;
+    private double velocitaStandard;
     //dimensioni fisse
     private final double HEIGHT = 30;
     private final double WIDTH = 30;
-    private double velocitaStandard;
+    //posizione della macchina
     private double posX;
     private double posY;
     //controlla se e in movimento o no (gestione futura di semafori)
