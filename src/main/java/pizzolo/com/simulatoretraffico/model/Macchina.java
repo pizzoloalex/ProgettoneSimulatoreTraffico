@@ -34,8 +34,8 @@ public class Macchina {
         this.posX = posX;
         this.posY = posY;
         this.velocitaStandard = 10;
-        this.velocitaX = 10;
-        this.velocitaY = 0;
+        this.velocitaX = 0;
+        this.velocitaY = -8;
         //appena creata e in movimento
         this.isMove = true;
     }
@@ -135,7 +135,15 @@ public class Macchina {
      * @param gc graphicontext del canvas
      */
     public void disegna(GraphicsContext gc) {
+        disegnaSemaforo(gc);
+        //disegna la macchina
         gc.setFill(Color.RED);
         gc.fillOval(posX, posY, WIDTH, HEIGHT);
+    }
+
+    private void disegnaSemaforo(GraphicsContext gc) {
+        //disegna il semaforo
+        gc.setFill(Color.GREEN);
+        gc.fillOval(gc.getCanvas().getWidth() / 2, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
     }
 }
