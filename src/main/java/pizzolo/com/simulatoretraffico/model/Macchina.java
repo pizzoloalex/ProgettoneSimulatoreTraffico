@@ -27,7 +27,7 @@ public class Macchina {
         this.posX = posX;
         this.posY = posY;
         this.velocitaStandard = 10;
-        this.velocitaX = -12;
+        this.velocitaX = 10;
         this.velocitaY = 0;
         //appena creata e in movimento
         this.isMove = true;
@@ -90,15 +90,14 @@ public class Macchina {
             posY = maxHeight;
         }
         //controllo bordo inferiore prendendo in causa la grandezza
-        if (posY - HEIGHT> maxHeight) {
+        if (posY - HEIGHT > maxHeight) {
             posY = 0;
         }
 
-        if (posX - WIDTH < 0){
+        // bordo sinistro: esce a sinistra → riappare a destra
+        if (posX + WIDTH < 0) {
             posX = maxWidth;
-        }
-        //todo controllare bordo destro
-        if (posY > maxWidth){
+        } else if (posX - WIDTH > maxWidth) { // bordo destro: esce a destra → riappare a sinistra
             posX = 0;
         }
     }
