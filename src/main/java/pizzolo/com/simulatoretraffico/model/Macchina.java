@@ -1,7 +1,13 @@
 package pizzolo.com.simulatoretraffico.model;
 
+import javafx.animation.Animation;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
+
+import java.sql.Time;
 
 /**
  * classe che gestisce la macchina e le sue posizioni
@@ -22,6 +28,7 @@ public class Macchina {
     private double posY;
     //controlla se e in movimento o no (gestione futura di semafori)
     private boolean isMove;
+    private Semaforo semaforo;
 
     public Macchina(double posX, double posY) {
         this.posX = posX;
@@ -99,6 +106,26 @@ public class Macchina {
             posX = maxWidth;
         } else if (posX - WIDTH > maxWidth) { // bordo destro: esce a destra → riappare a sinistra
             posX = 0;
+        }
+    }
+
+    public void gestioneSemaforo(Semaforo semaforo) {
+        Color coloreSemaforo = semaforo.getColore();
+        if (coloreSemaforo == Color.GREEN) {
+            //continua movimento
+            velocitaStandard = MAX_VELOCITA;
+        } else if (coloreSemaforo == Color.YELLOW) {
+            Timeline timeline = new Timeline();
+            timeline.setCycleCount(Animation.INDEFINITE);
+            KeyFrame kf = new KeyFrame(Duration.millis(50), actionEvent -> {
+                if (velocitaX > 1) {
+                    velocitaX--;
+                }
+            });
+            timeline.getKeyFrames().add(kf);
+            timeline.play();
+        } else if (coloreSemaforo == Color.RED) {
+            velocitaX = 0;
         }
     }
 

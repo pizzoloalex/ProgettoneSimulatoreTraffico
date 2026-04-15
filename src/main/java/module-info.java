@@ -1,6 +1,7 @@
 module pizzolo.com.simulatoretraffico {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
 
     opens pizzolo.com.simulatoretraffico to javafx.fxml;
