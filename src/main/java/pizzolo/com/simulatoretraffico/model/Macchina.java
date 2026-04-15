@@ -109,25 +109,6 @@ public class Macchina {
         }
     }
 
-    public void gestioneSemaforo(Semaforo semaforo) {
-        Color coloreSemaforo = semaforo.getColore();
-        if (coloreSemaforo == Color.GREEN) {
-            //continua movimento
-            velocitaStandard = MAX_VELOCITA;
-        } else if (coloreSemaforo == Color.YELLOW) {
-            Timeline timeline = new Timeline();
-            timeline.setCycleCount(Animation.INDEFINITE);
-            KeyFrame kf = new KeyFrame(Duration.millis(50), actionEvent -> {
-                if (velocitaX > 1) {
-                    velocitaX--;
-                }
-            });
-            timeline.getKeyFrames().add(kf);
-            timeline.play();
-        } else if (coloreSemaforo == Color.RED) {
-            velocitaX = 0;
-        }
-    }
 
     /**
      * metodo che disegna la macchina
@@ -141,6 +122,10 @@ public class Macchina {
         gc.fillOval(posX, posY, WIDTH, HEIGHT);
     }
 
+    /**
+     * metodo che disegna il semaforo e gestisce il cambio colore
+     * @param gc
+     */
     private void disegnaSemaforo(GraphicsContext gc) {
         //disegna il semaforo
         gc.setFill(Color.GREEN);

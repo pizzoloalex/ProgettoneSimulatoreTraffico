@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import pizzolo.com.simulatoretraffico.model.GestioneMovimento;
 import pizzolo.com.simulatoretraffico.model.Macchina;
 
@@ -25,6 +26,7 @@ public class Controller {
     public void initialize() {
         gc = canvas.getGraphicsContext2D();
         gestioneMovimento = new GestioneMovimento(gc);
+//        disegnaSemaforo();
     }
 
     /**
@@ -63,12 +65,12 @@ public class Controller {
         }
     }
 
+
     /**
      * metodo che avvia la simulazione
      */
     @FXML
     public void avviaSimulazione() {
-        //TODO
         gestioneMovimento.start();
     }
 }
