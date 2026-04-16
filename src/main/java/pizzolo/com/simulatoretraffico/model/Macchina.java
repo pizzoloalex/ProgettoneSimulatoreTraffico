@@ -38,6 +38,8 @@ public class Macchina {
         this.velocitaY = -8;
         //appena creata e in movimento
         this.isMove = true;
+        this.semaforo = new Semaforo(Duration.seconds(3), Duration.seconds(2), Duration.seconds(5));
+        this.semaforo.inizializzaSemaforo();
     }
 
     public double getVelocitaStandard() {
@@ -80,6 +82,11 @@ public class Macchina {
      * @param maxHeight altezza massima per la gestione dei limiti
      */
     public void aggiorna(double maxWidth, double maxHeight) {
+        if (semaforo.isRosso()) {
+            isMove = false;
+        } else {
+            isMove = true;
+        }
         posX += velocitaX;
         posY += velocitaY;
 
@@ -116,19 +123,19 @@ public class Macchina {
      * @param gc graphicontext del canvas
      */
     public void disegna(GraphicsContext gc) {
-        disegnaSemaforo(gc);
+        gestioneSemaforo(gc);
         //disegna la macchina
         gc.setFill(Color.RED);
         gc.fillOval(posX, posY, WIDTH, HEIGHT);
     }
 
     /**
-     * metodo che disegna il semaforo e gestisce il cambio colore
+     * metodo che disegna il semaforo e gestisce il cambio colore prendendo il colore dalla classe semaforo
+     *
      * @param gc
      */
-    private void disegnaSemaforo(GraphicsContext gc) {
-        //disegna il semaforo
-        gc.setFill(Color.GREEN);
+    public void gestioneSemaforo(GraphicsContext gc) {
+        gc.setFill(semaforo.getColore());
         gc.fillOval(gc.getCanvas().getWidth() / 2, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
     }
 }
