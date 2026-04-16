@@ -27,18 +27,27 @@ public class Semaforo {
         this.durataRossa = durataRossa;
     }
 
-    public void inizializzaSemaforo(){
+    public void inizializzaSemaforo() {
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(durataVerde, actionEvent ->{
+        timeline.getKeyFrames().add(new KeyFrame(durataVerde, actionEvent -> {
             this.colore = Color.GREEN;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(durataGiallo, actionEvent ->{
+        timeline.getKeyFrames().add(new KeyFrame(durataGiallo, actionEvent -> {
             this.colore = Color.YELLOW;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(durataRossa, actionEvent ->{
+        timeline.getKeyFrames().add(new KeyFrame(durataRossa, actionEvent -> {
             this.colore = Color.RED;
         }));
         timeline.play();
+    }
 
+    public boolean isRosso() {
+        return this.colore == Color.RED;
+    }
+    public boolean isGiallo() {
+        return this.colore == Color.YELLOW;
+    }
+    public boolean isVerde() {
+        return this.colore == Color.GREEN;
     }
 }
