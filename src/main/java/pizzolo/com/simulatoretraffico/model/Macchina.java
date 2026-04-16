@@ -77,6 +77,7 @@ public class Macchina {
     /**
      * aggiorna la posizione della macchina ogni volta
      * controlla i bordi del canvas
+     * gestisce quando la macchina e in movimento o farma
      *
      * @param maxWidth  larghezza massima per la gestione dei limiti
      * @param maxHeight altezza massima per la gestione dei limiti
@@ -84,11 +85,13 @@ public class Macchina {
     public void aggiorna(double maxWidth, double maxHeight) {
         if (semaforo.isRosso()) {
             isMove = false;
+            velocitaX = 0;
+            velocitaY = 0;
         } else {
             isMove = true;
+            posX += velocitaX;
+            posY += velocitaY;
         }
-        posX += velocitaX;
-        posY += velocitaY;
 
         /*
 
