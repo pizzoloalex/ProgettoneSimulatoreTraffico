@@ -28,6 +28,9 @@ public class Semaforo {
         this.timeline = new Timeline();
     }
 
+    /**
+     * metodo che inizializza il tempo di ogni semaforo
+     */
     public void inizializzaSemaforo() {
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, actionEvent -> {

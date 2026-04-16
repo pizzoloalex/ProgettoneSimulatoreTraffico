@@ -9,6 +9,11 @@ import javafx.util.Duration;
 
 import java.sql.Time;
 
+//TODO aggiungere gestione di piu semafori e gestirli contemporaneamente
+//TODO controllare che la macchina si  fermi prima del semaforo e non dopo
+//TODO aggiungere lo sfondo , inizialmente una sola strada
+//TODO gestire il rallenatamento della macchina quando il semaforo e rosso
+
 /**
  * classe che gestisce la macchina e le sue posizioni
  */
@@ -136,7 +141,7 @@ public class Macchina {
     public void disegna(GraphicsContext gc) {
         gestioneSemaforo(gc);
         //disegna la macchina
-        gc.setFill(Color.RED);
+        gc.setFill(Color.BLACK);
         gc.fillOval(posX, posY, WIDTH, HEIGHT);
     }
 
