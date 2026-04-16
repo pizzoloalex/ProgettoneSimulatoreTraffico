@@ -25,18 +25,22 @@ public class Semaforo {
         this.durataVerde = durataVerde;
         this.durataGiallo = durataGiallo;
         this.durataRossa = durataRossa;
+        this.timeline = new Timeline();
     }
 
     public void inizializzaSemaforo() {
         timeline.setCycleCount(Animation.INDEFINITE);
-        timeline.getKeyFrames().add(new KeyFrame(durataVerde, actionEvent -> {
+        timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, actionEvent -> {
             this.colore = Color.GREEN;
         }));
         timeline.getKeyFrames().add(new KeyFrame(durataGiallo, actionEvent -> {
             this.colore = Color.YELLOW;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(durataRossa, actionEvent -> {
+        timeline.getKeyFrames().add(new KeyFrame(durataRossa.add(durataGiallo), actionEvent -> {
             this.colore = Color.RED;
+        }));
+        timeline.getKeyFrames().add(new KeyFrame(durataVerde.add(durataGiallo).add(durataRossa), actionEvent -> {
+            this.colore = Color.GREEN;
         }));
         timeline.play();
     }
@@ -49,5 +53,9 @@ public class Semaforo {
     }
     public boolean isVerde() {
         return this.colore == Color.GREEN;
+    }
+
+    public Color getColore() {
+        return colore;
     }
 }
