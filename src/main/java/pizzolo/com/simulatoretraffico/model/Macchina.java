@@ -29,6 +29,9 @@ public class Macchina {
     //controlla se e in movimento o no (gestione futura di semafori)
     private boolean isMove;
     private Semaforo semaforo;
+    private double velocitaXOriginale;
+    private double velocitaYOriginale;
+
 
     public Macchina(double posX, double posY) {
         this.posX = posX;
@@ -36,6 +39,8 @@ public class Macchina {
         this.velocitaStandard = 10;
         this.velocitaX = 0;
         this.velocitaY = -8;
+        this.velocitaXOriginale = 0;
+        this.velocitaYOriginale = -8;
         //appena creata e in movimento
         this.isMove = true;
         this.semaforo = new Semaforo(Duration.seconds(3), Duration.seconds(2), Duration.seconds(5));
@@ -89,10 +94,12 @@ public class Macchina {
             velocitaY = 0;
         } else {
             isMove = true;
-            posX += velocitaX;
-            posY += velocitaY;
+            velocitaY = velocitaYOriginale;
+            velocitaX = velocitaXOriginale;
         }
 
+        posX += velocitaX;
+        posY += velocitaY;
 
         /*
 
