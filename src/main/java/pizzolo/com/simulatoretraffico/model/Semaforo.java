@@ -29,9 +29,12 @@ public class Semaforo {
     }
 
     /**
-     * metodo che inizializza il tempo di ogni semaforo
+     * metodo che gestisce il ciclo di piu semafori a colori alterni
+     *
+     * @param offset durata di cui sfasare il semaforo
      */
-    public void inizializzaSemaforo() {
+    public void inizializzaSemaforo(Duration offset) {
+        Duration cicloTotale = durataVerde.add(durataGiallo).add(durataRossa);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, actionEvent -> {
             this.colore = Color.GREEN;
@@ -42,18 +45,28 @@ public class Semaforo {
         timeline.getKeyFrames().add(new KeyFrame(durataRossa.add(durataGiallo), actionEvent -> {
             this.colore = Color.RED;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(durataVerde.add(durataGiallo).add(durataRossa), actionEvent -> {
+        timeline.getKeyFrames().add(new KeyFrame(cicloTotale, actionEvent -> {
             this.colore = Color.GREEN;
         }));
         timeline.play();
+
+        if (!offset.equals(Duration.ZERO)) {
+            timeline.jumpTo(offset);
+        }
+    }
+
+    public void inizializzaSemaforo() {
+        inizializzaSemaforo(Duration.ZERO);
     }
 
     public boolean isRosso() {
         return this.colore == Color.RED;
     }
+
     public boolean isGiallo() {
         return this.colore == Color.YELLOW;
     }
+
     public boolean isVerde() {
         return this.colore == Color.GREEN;
     }

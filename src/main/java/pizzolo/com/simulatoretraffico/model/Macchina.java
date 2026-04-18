@@ -1,19 +1,14 @@
 package pizzolo.com.simulatoretraffico.model;
 
-import javafx.animation.Animation;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-
-import java.sql.Time;
 
 //TODO aggiungere gestione di piu semafori e gestirli contemporaneamente
 //TODO controllare che la macchina si  fermi prima del semaforo e non dopo
 //TODO aggiungere lo sfondo , inizialmente una sola strada
 //TODO gestire il rallenatamento della macchina quando il semaforo e rosso
-
+//TODO gestire piu macchine su semafori distinti
 /**
  * classe che gestisce la macchina e le sue posizioni
  */
@@ -33,10 +28,11 @@ public class Macchina {
     private double posY;
     //controlla se e in movimento o no (gestione futura di semafori)
     private boolean isMove;
-    private Semaforo semaforo;
+    //gestione di due incroci
+    private Semaforo semaforoIncrocioA1;
+    private Semaforo semaforoIncrocioA2;
     private double velocitaXOriginale;
     private double velocitaYOriginale;
-
 
     public Macchina(double posX, double posY) {
         this.posX = posX;
@@ -46,10 +42,15 @@ public class Macchina {
         this.velocitaY = -8;
         this.velocitaXOriginale = 0;
         this.velocitaYOriginale = -8;
+        Duration verde  = Duration.seconds(5);
+        Duration giallo = Duration.seconds(2);
+        Duration rosso  = Duration.seconds(5);
         //appena creata e in movimento
         this.isMove = true;
-        this.semaforo = new Semaforo(Duration.seconds(3), Duration.seconds(2), Duration.seconds(5));
-        this.semaforo.inizializzaSemaforo();
+        this.semaforoIncrocioA1 = new Semaforo(verde, giallo, rosso);
+        this.semaforoIncrocioA1.inizializzaSemaforo(Duration.ZERO);
+        this.semaforoIncrocioA2  = new Semaforo(verde, giallo, rosso);
+        this.semaforoIncrocioA2.inizializzaSemaforo(verde);
     }
 
     public double getVelocitaStandard() {
@@ -93,7 +94,7 @@ public class Macchina {
      * @param maxHeight altezza massima per la gestione dei limiti
      */
     public void aggiorna(double maxWidth, double maxHeight) {
-        if (semaforo.isRosso()) {
+        if (semaforoIncrocioA1.isRosso()) {
             isMove = false;
             velocitaX = 0;
             velocitaY = 0;
@@ -151,7 +152,9 @@ public class Macchina {
      * @param gc
      */
     public void gestioneSemaforo(GraphicsContext gc) {
-        gc.setFill(semaforo.getColore());
+        gc.setFill(semaforoIncrocioA1.getColore());
         gc.fillOval(gc.getCanvas().getWidth() / 2, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
+        gc.setFill(semaforoIncrocioA2.getColore());
+        gc.fillOval((gc.getCanvas().getWidth() /2 ) + 200, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
     }
 }
