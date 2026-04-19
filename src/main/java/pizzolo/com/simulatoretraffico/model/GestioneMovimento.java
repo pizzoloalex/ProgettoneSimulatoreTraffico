@@ -12,11 +12,13 @@ import java.util.ArrayList;
 public class GestioneMovimento extends AnimationTimer {
     //gestisce l'array di macchine per tutto il movimento di ogni macchina
     private ArrayList<Macchina> macchineCanvas;
+    private ArrayList<Semaforo> semafori;
     //gestisce il movimento della macchine
     private GraphicsContext gc;
 
     public GestioneMovimento(GraphicsContext gc) {
         macchineCanvas = new ArrayList<>();
+        semafori = new ArrayList<>();
         this.gc = gc;
     }
 
@@ -28,10 +30,17 @@ public class GestioneMovimento extends AnimationTimer {
     @Override
     public void handle(long l) {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
+        for(Semaforo s: semafori){
+            s.disegna(gc);
+        }
         for (Macchina m : macchineCanvas) {
             m.aggiorna(gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             m.disegna(gc);
         }
+    }
+
+    public ArrayList<Semaforo> getSemafori() {
+        return semafori;
     }
 
     public ArrayList<Macchina> getMacchineCanvas() {
