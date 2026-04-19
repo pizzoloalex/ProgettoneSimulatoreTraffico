@@ -27,28 +27,32 @@ public class Controller {
     public void initialize() {
         gc = canvas.getGraphicsContext2D();
         gestioneMovimento = new GestioneMovimento(gc);
+        //esegue questo codice dopo che il canvas e pronto o in un futuro qualunque
         Platform.runLater(() -> {
-            Duration verde = Duration.seconds(5);
-            Duration giallo = Duration.seconds(2);
-            Duration rosso = Duration.seconds(5);
+            Duration verde = Duration.seconds(8);
+            Duration giallo = Duration.seconds(4);
+            Duration rosso = verde.add(giallo);
 
             // semaforo per la macchina verticale: parte da verde
-            semaforoVerticale = new Semaforo(verde, giallo, rosso, canvas.getWidth() / 2, canvas.getHeight() / 2 - 100);
+            semaforoVerticale = new Semaforo(verde, giallo, rosso, canvas.getWidth() / 2, canvas.getHeight() / 2);
             semaforoVerticale.inizializzaSemaforo(Duration.ZERO);
 
             // semaforo per la macchina orizzontale: sfasato → parte da rosso
-            semaforoOrizzontale = new Semaforo(verde, giallo, rosso, canvas.getWidth() / 2 + 100, canvas.getHeight() / 2 - 100);
+            semaforoOrizzontale = new Semaforo(verde, giallo, rosso, canvas.getWidth() / 2 + 180, canvas.getHeight() / 2);
             semaforoOrizzontale.inizializzaSemaforo(verde.add(giallo));
             // registra i semafori in GestioneMovimento così vengono disegnati ogni frame
-            gestioneMovimento.getSemafori().add(semaforoVerticale);
             gestioneMovimento.getSemafori().add(semaforoOrizzontale);
+            gestioneMovimento.getSemafori().add(semaforoVerticale);
         });
 
     }
 
+    /**
+     * metodo che disegna ogni volta una macchina con  il suo relativo semaforo
+     */
     @FXML
     public void aggiungiMacchina() {
-        Macchina m1 = new Macchina(canvas.getWidth() / 2, canvas.getHeight() / 2, 0, -8, semaforoVerticale);
+        Macchina m1 = new Macchina(canvas.getWidth() / 2, canvas.getHeight() / 2 +  50, 0, -8, semaforoVerticale);
         m1.disegna(gc);
         Macchina m2 = new Macchina(canvas.getWidth() / 2 + 250, canvas.getHeight() / 2, -8, 0, semaforoOrizzontale);
         m2.disegna(gc);

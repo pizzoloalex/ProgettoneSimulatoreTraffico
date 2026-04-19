@@ -8,7 +8,7 @@ import javafx.util.Duration;
 //TODO controllare che la macchina si  fermi prima del semaforo e non dopo
 //TODO aggiungere lo sfondo , inizialmente una sola strada
 //TODO gestire il rallenatamento della macchina quando il semaforo e rosso
-//TODO gestire piu macchine su semafori distinti
+
 
 /**
  * classe che gestisce la macchina e le sue posizioni
@@ -96,11 +96,12 @@ public class Macchina {
      * @param maxHeight altezza massima per la gestione dei limiti
      */
     public void aggiorna(double maxWidth, double maxHeight) {
-        if (semaforo.isGiallo()) {
-            isMove = true;
-            velocitaX = 0;
-            velocitaY = -5;
-        } else if (semaforo.isRosso()) {
+//        if (semaforo.isGiallo()) {
+//            isMove = true;
+//            velocitaX = velocitaXOriginale - 10;
+//            velocitaY = velocitaYOriginale - 10;
+//        } else
+        if (semaforo.isRosso()) {
             isMove = false;
             velocitaX = 0;
             velocitaY = 0;

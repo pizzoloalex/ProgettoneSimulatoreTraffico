@@ -57,7 +57,7 @@ public class Semaforo {
             this.colore = Color.GREEN;
         }));
         timeline.getKeyFrames().add(new KeyFrame(fineVerde, actionEvent -> {
-            this.colore = Color.YELLOW;
+            this.colore = Color.ORANGE;
         }));
         timeline.getKeyFrames().add(new KeyFrame(fineGiallo, actionEvent -> {
             this.colore = Color.RED;
@@ -92,7 +92,7 @@ public class Semaforo {
     }
 
     public boolean isGiallo() {
-        return this.colore == Color.YELLOW;
+        return this.colore == Color.ORANGE;
     }
 
     public boolean isVerde() {
