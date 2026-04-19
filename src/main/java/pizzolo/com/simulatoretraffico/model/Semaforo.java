@@ -22,7 +22,7 @@ public class Semaforo {
     //posizione del  semaforo sul cannvas
     private double posX;
     private double posY;
-    private final double  SIZE =  50;
+    private final double  SIZE =  20;
 
     /**
      *

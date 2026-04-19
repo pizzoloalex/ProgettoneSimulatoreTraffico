@@ -12,7 +12,6 @@ import pizzolo.com.simulatoretraffico.model.GestioneMovimento;
 import pizzolo.com.simulatoretraffico.model.Macchina;
 import pizzolo.com.simulatoretraffico.model.Semaforo;
 
-//TODO fixare  bug perche non mi disegna  semafori
 
 public class Controller {
     @FXML
@@ -38,7 +37,7 @@ public class Controller {
             semaforoVerticale.inizializzaSemaforo(Duration.ZERO);
 
             // semaforo per la macchina orizzontale: sfasato → parte da rosso
-            semaforoOrizzontale = new Semaforo(verde, giallo, rosso, canvas.getWidth() / 2 + 200, canvas.getHeight() / 2 - 200);
+            semaforoOrizzontale = new Semaforo(verde, giallo, rosso, canvas.getWidth() / 2 + 100, canvas.getHeight() / 2 - 100);
             semaforoOrizzontale.inizializzaSemaforo(verde.add(giallo));
             // registra i semafori in GestioneMovimento così vengono disegnati ogni frame
             gestioneMovimento.getSemafori().add(semaforoVerticale);
