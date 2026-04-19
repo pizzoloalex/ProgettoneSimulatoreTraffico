@@ -9,6 +9,7 @@ import javafx.util.Duration;
 //TODO aggiungere lo sfondo , inizialmente una sola strada
 //TODO gestire il rallenatamento della macchina quando il semaforo e rosso
 //TODO gestire piu macchine su semafori distinti
+
 /**
  * classe che gestisce la macchina e le sue posizioni
  */
@@ -42,15 +43,16 @@ public class Macchina {
         this.velocitaY = -8;
         this.velocitaXOriginale = 0;
         this.velocitaYOriginale = -8;
-        Duration verde  = Duration.seconds(5);
-        Duration giallo = Duration.seconds(2);
-        Duration rosso  = Duration.seconds(5);
+        Duration verde = Duration.seconds(5);
+        Duration giallo = Duration.seconds(3);
+        Duration rosso = verde.add(giallo);
         //appena creata e in movimento
         this.isMove = true;
         this.semaforoIncrocioA1 = new Semaforo(verde, giallo, rosso);
         this.semaforoIncrocioA1.inizializzaSemaforo(Duration.ZERO);
-        this.semaforoIncrocioA2  = new Semaforo(verde, giallo, rosso);
-        this.semaforoIncrocioA2.inizializzaSemaforo(verde);
+        //il secondo  semaforo salta  immediatamente alla  fase rossa
+        this.semaforoIncrocioA2 = new Semaforo(verde, giallo, rosso);
+        this.semaforoIncrocioA2.inizializzaSemaforo(verde.add(giallo));
     }
 
     public double getVelocitaStandard() {
@@ -94,7 +96,11 @@ public class Macchina {
      * @param maxHeight altezza massima per la gestione dei limiti
      */
     public void aggiorna(double maxWidth, double maxHeight) {
-        if (semaforoIncrocioA1.isRosso()) {
+        if (semaforoIncrocioA1.isGiallo()) {
+            isMove = true;
+            velocitaX = 0;
+            velocitaY = -5;
+        } else if (semaforoIncrocioA1.isRosso()) {
             isMove = false;
             velocitaX = 0;
             velocitaY = 0;
@@ -155,6 +161,6 @@ public class Macchina {
         gc.setFill(semaforoIncrocioA1.getColore());
         gc.fillOval(gc.getCanvas().getWidth() / 2, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
         gc.setFill(semaforoIncrocioA2.getColore());
-        gc.fillOval((gc.getCanvas().getWidth() /2 ) + 200, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
+        gc.fillOval((gc.getCanvas().getWidth() / 2) + 200, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
     }
 }

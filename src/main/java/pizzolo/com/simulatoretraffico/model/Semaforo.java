@@ -34,23 +34,29 @@ public class Semaforo {
      * @param offset durata di cui sfasare il semaforo
      */
     public void inizializzaSemaforo(Duration offset) {
-        Duration cicloTotale = durataVerde.add(durataGiallo).add(durataRossa);
+        Duration fineVerde = durataVerde;
+        Duration fineGiallo = fineVerde.add(durataGiallo);
+        Duration cicloTotale = fineGiallo.add(durataRossa);
         timeline.setCycleCount(Animation.INDEFINITE);
         timeline.getKeyFrames().add(new KeyFrame(Duration.ZERO, actionEvent -> {
             this.colore = Color.GREEN;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(durataGiallo, actionEvent -> {
+        timeline.getKeyFrames().add(new KeyFrame(fineVerde, actionEvent -> {
             this.colore = Color.YELLOW;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(durataRossa.add(durataGiallo), actionEvent -> {
+        timeline.getKeyFrames().add(new KeyFrame(fineGiallo, actionEvent -> {
             this.colore = Color.RED;
         }));
-        timeline.getKeyFrames().add(new KeyFrame(cicloTotale, actionEvent -> {
-            this.colore = Color.GREEN;
-        }));
+        timeline.getKeyFrames().add(new KeyFrame(cicloTotale));
         timeline.play();
 
-        if (!offset.equals(Duration.ZERO)) {
+        /*
+        Salta a una determinata posizione in questo Animation.
+        Se il tempo specificato è inferiore a Duration.ZERO, questo metodo salterà all'inizio dell'animazione.
+        Se il tempo specificato è maggiore della durata di questo Animation, questo metodo salterà alla fine.
+        fa partire i colori sfasati
+         */
+        if (!offset.equals(Duration.ZERO) && offset != null) {
             timeline.jumpTo(offset);
         }
     }
