@@ -3,6 +3,7 @@ package pizzolo.com.simulatoretraffico.model;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
@@ -18,19 +19,33 @@ public class Semaforo {
     private Duration durataVerde;
     private Duration durataGiallo;
     private Duration durataRossa;
+    //posizione del  semaforo sul cannvas
+    private double posX;
+    private double posY;
+    private final double  SIZE =  50;
 
-    public Semaforo(Duration durataVerde, Duration durataGiallo, Duration durataRossa) {
+    /**
+     *
+     * @param durataVerde  durata del colore verde
+     * @param durataGiallo  durata del colore giallo
+     * @param durataRossa durata  del colore rosso
+     * @param posX  posizione  X del   semaforo
+     * @param posY  posizione Y del semaforo
+     */
+    public Semaforo(Duration durataVerde, Duration durataGiallo, Duration durataRossa, double posX, double posY) {
         //inizialmente verde
         this.colore = Color.GREEN;
         this.durataVerde = durataVerde;
         this.durataGiallo = durataGiallo;
         this.durataRossa = durataRossa;
+        this.posX = posX;
+        this.posY =  posY;
         this.timeline = new Timeline();
     }
 
     /**
      * metodo che gestisce il ciclo di piu semafori a colori alterni
-     *
+     * coordina le  varie durate
      * @param offset durata di cui sfasare il semaforo
      */
     public void inizializzaSemaforo(Duration offset) {
@@ -59,6 +74,13 @@ public class Semaforo {
         if (!offset.equals(Duration.ZERO) && offset != null) {
             timeline.jumpTo(offset);
         }
+    }
+    /**
+     * disegna il semaforo nella sua posizione fissa sul canvas
+     */
+    public void disegna(GraphicsContext gc) {
+        gc.setFill(colore);
+        gc.fillOval(posX, posY, SIZE, SIZE);
     }
 
     public void inizializzaSemaforo() {
