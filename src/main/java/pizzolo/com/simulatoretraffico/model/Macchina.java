@@ -2,12 +2,12 @@ package pizzolo.com.simulatoretraffico.model;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
-import javafx.util.Duration;
 
 //TODO aggiungere gestione di piu semafori e gestirli contemporaneamente
 //TODO controllare che la macchina si  fermi prima del semaforo e non dopo
 //TODO aggiungere lo sfondo , inizialmente una sola strada
-//TODO gestire il rallenatamento della macchina quando il semaforo e rosso
+//TODO gestire il rallenatamento della macchina quando il semaforo sta per essere rosso
+//TODO gestire il rallentamento in modo tale che la macchina rallenti con velocita graduale e giusta coi da fermarsi prima della linea del semaforo
 
 
 /**
@@ -32,6 +32,7 @@ public class Macchina {
     private Semaforo semaforo;
     private double velocitaXOriginale;
     private double velocitaYOriginale;
+    //velocita di rallentamento
     private double rallentamentoX;
     private double rallentamentoY;
 

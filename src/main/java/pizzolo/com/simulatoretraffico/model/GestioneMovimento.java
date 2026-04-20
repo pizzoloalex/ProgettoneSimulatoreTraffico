@@ -15,7 +15,6 @@ public class GestioneMovimento extends AnimationTimer {
     private ArrayList<Semaforo> semafori;
     //gestisce il movimento della macchine
     private GraphicsContext gc;
-    private long lastTime;
 
     public GestioneMovimento(GraphicsContext gc) {
         macchineCanvas = new ArrayList<>();
