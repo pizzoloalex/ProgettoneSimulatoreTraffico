@@ -77,6 +77,30 @@ public class Macchina {
         return posY;
     }
 
+    public double getVelocitaYOriginale() {
+        return velocitaYOriginale;
+    }
+
+    public void setRallentamentoY(double rallentamentoY) {
+        this.rallentamentoY = rallentamentoY;
+    }
+
+    public void setRallentamentoX(double rallentamentoX) {
+        this.rallentamentoX = rallentamentoX;
+    }
+
+    public void setVelocitaYOriginale(double velocitaYOriginale) {
+        this.velocitaYOriginale = velocitaYOriginale;
+    }
+
+    public void setVelocitaXOriginale(double velocitaXOriginale) {
+        this.velocitaXOriginale = velocitaXOriginale;
+    }
+
+    public double getVelocitaXOriginale() {
+        return velocitaXOriginale;
+    }
+
     public void setPosX(double posX) {
         this.posX = posX;
     }
