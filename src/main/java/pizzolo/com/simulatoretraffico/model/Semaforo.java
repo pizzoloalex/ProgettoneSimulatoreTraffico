@@ -22,15 +22,22 @@ public class Semaforo {
     //posizione del  semaforo sul cannvas
     private double posX;
     private double posY;
-    private final double  SIZE =  20;
+    private final double SIZE = 20;
+
+    public double getPosY() {
+        return posY;
+    }
+
+    public double getPosX() {
+        return posX;
+    }
 
     /**
-     *
      * @param durataVerde  durata del colore verde
-     * @param durataGiallo  durata del colore giallo
-     * @param durataRossa durata  del colore rosso
-     * @param posX  posizione  X del   semaforo
-     * @param posY  posizione Y del semaforo
+     * @param durataGiallo durata del colore giallo
+     * @param durataRossa  durata  del colore rosso
+     * @param posX         posizione  X del   semaforo
+     * @param posY         posizione Y del semaforo
      */
     public Semaforo(Duration durataVerde, Duration durataGiallo, Duration durataRossa, double posX, double posY) {
         //inizialmente verde
@@ -39,13 +46,14 @@ public class Semaforo {
         this.durataGiallo = durataGiallo;
         this.durataRossa = durataRossa;
         this.posX = posX;
-        this.posY =  posY;
+        this.posY = posY;
         this.timeline = new Timeline();
     }
 
     /**
      * metodo che gestisce il ciclo di piu semafori a colori alterni
      * coordina le  varie durate
+     *
      * @param offset durata di cui sfasare il semaforo
      */
     public void inizializzaSemaforo(Duration offset) {

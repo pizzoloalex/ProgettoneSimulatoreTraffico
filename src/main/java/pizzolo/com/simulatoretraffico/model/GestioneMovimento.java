@@ -30,13 +30,46 @@ public class GestioneMovimento extends AnimationTimer {
     @Override
     public void handle(long l) {
         gc.clearRect(0, 0, gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
-        for(Semaforo s: semafori){
+        for (Semaforo s : semafori) {
             s.disegna(gc);
         }
         for (Macchina m : macchineCanvas) {
             m.aggiorna(gc.getCanvas().getWidth(), gc.getCanvas().getHeight());
             m.disegna(gc);
         }
+    }
+
+    /**
+     * calcola la distanza migliore tra la macchina e il semaforo piu vicino
+     *
+     * @param m macchina da gestire per la distanza
+     * @return il semaforo piu vicino
+     */
+    private Semaforo distanzaSemaforo(Macchina m) {
+        Semaforo vicino = null;
+        double minDistanza = Double.MAX_VALUE; //inizialmente distanza infinita
+        for (Semaforo s : semafori) {
+            double d = calcolaDistanza(m, s);
+            //se minore della distanza massima
+            if (d < minDistanza) {
+                minDistanza = d;
+                vicino = s;
+            }
+        }
+        return vicino;
+    }
+
+    /**
+     * calcola la distanza tra la macchina e il semaforo
+     *
+     * @param m macchina per la distanza
+     * @param s semaforo in condivisione con l machcina
+     * @return
+     */
+    private double calcolaDistanza(Macchina m, Semaforo s) {
+        double distanzaX = m.getPosX() - s.getPosX();
+        double distanzaY = m.getPosY() - s.getPosY();
+        return Math.sqrt(distanzaX * distanzaX + distanzaY * distanzaY);
     }
 
     public ArrayList<Semaforo> getSemafori() {
