@@ -52,9 +52,9 @@ public class Controller {
      */
     @FXML
     public void aggiungiMacchina() {
-        Macchina m1 = new Macchina(canvas.getWidth() / 2, canvas.getHeight() / 2 +  50, 0, -8, semaforoVerticale);
+        Macchina m1 = new Macchina(canvas.getWidth() / 2, canvas.getHeight() / 2 +  50, 0, -8, semaforoVerticale, 0, -5);
         m1.disegna(gc);
-        Macchina m2 = new Macchina(canvas.getWidth() / 2 + 250, canvas.getHeight() / 2, -8, 0, semaforoOrizzontale);
+        Macchina m2 = new Macchina(canvas.getWidth() / 2 + 250, canvas.getHeight() / 2, -8, 0, semaforoOrizzontale, -5,0);
         m2.disegna(gc);
         gestioneMovimento.getMacchineCanvas().add(m1);
         gestioneMovimento.getMacchineCanvas().add(m2);

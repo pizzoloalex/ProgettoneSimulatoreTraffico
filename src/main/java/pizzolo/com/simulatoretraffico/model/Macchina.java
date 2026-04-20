@@ -15,7 +15,6 @@ import javafx.util.Duration;
  */
 public class Macchina {
     //statistiche della macchina
-    private final double MAX_VELOCITA = 100;
     private double velocitaStandard;
     //velocita utilizzate per aggiornare la posizione
     private double velocitaX; //velocita orizzontale
@@ -33,16 +32,21 @@ public class Macchina {
     private Semaforo semaforo;
     private double velocitaXOriginale;
     private double velocitaYOriginale;
+    private double rallentamentoX;
+    private double rallentamentoY;
 
 
-    /**
+
+     /**
      * @param posX      posizione iniziale della macchina X
      * @param posY      posizione iniziale della macchina Y
      * @param velocitaX velocita orizzontale
      * @param velocitaY velocita verticale
      * @param semaforo  semaforo condiviso
+     * @param rallentamentoX velocita di rallentamento orizzontale
+     * @param rallentamentoY velocita di rallentamento verticale
      */
-    public Macchina(double posX, double posY, double velocitaX, double velocitaY, Semaforo semaforo) {
+    public Macchina(double posX, double posY, double velocitaX, double velocitaY, Semaforo semaforo, double rallentamentoX, double rallentamentoY) {
         this.posX = posX;
         this.posY = posY;
         this.velocitaStandard = 10;
@@ -50,6 +54,8 @@ public class Macchina {
         this.velocitaX = velocitaX;
         this.velocitaXOriginale = velocitaX;
         this.velocitaYOriginale = velocitaY;
+        this.rallentamentoX = rallentamentoX;
+        this.rallentamentoY = rallentamentoY;
         //appena creata e in movimento
         this.isMove = true;
         this.semaforo = semaforo;
@@ -96,12 +102,11 @@ public class Macchina {
      * @param maxHeight altezza massima per la gestione dei limiti
      */
     public void aggiorna(double maxWidth, double maxHeight) {
-//        if (semaforo.isGiallo()) {
-//            isMove = true;
-//            velocitaX = velocitaXOriginale - 10;
-//            velocitaY = velocitaYOriginale - 10;
-//        } else
-        if (semaforo.isRosso()) {
+        if (semaforo.isGiallo()) {
+            isMove = true;
+            velocitaX = rallentamentoX;
+            velocitaY = rallentamentoY;
+        } else if (semaforo.isRosso()) {
             isMove = false;
             velocitaX = 0;
             velocitaY = 0;
@@ -151,17 +156,5 @@ public class Macchina {
         gc.setFill(Color.BLACK);
         gc.fillOval(posX, posY, WIDTH, HEIGHT);
     }
-
-//    /**
-//     * metodo che disegna il semaforo e gestisce il cambio colore prendendo il colore dalla classe semaforo
-//     *
-//     * @param gc graphicontext del canvas
-//     */
-//    public void gestioneSemaforo(GraphicsContext gc) {
-//        gc.setFill(semaforoIncrocioA1.getColore());
-//        gc.fillOval(gc.getCanvas().getWidth() / 2, (gc.getCanvas().getHeight() / 2) - 100, WIDTH, HEIGHT);
-//        gc.setFill(semaforoIncrocioA2.getColore());
-//        gc.fillOval((gc.getCanvas().getWidth() / 2) + 200, (gc.getCanvas().getHeight() / 2) - 200, WIDTH, HEIGHT);
-//    }
 
 }
