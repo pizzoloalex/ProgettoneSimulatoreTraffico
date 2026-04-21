@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 //TODO aggiungere lo sfondo , inizialmente una sola strada
 //TODO gestire il rallenatamento della macchina quando il semaforo sta per essere rosso
 //TODO gestire il rallentamento in modo tale che la macchina rallenti con velocita graduale e giusta coi da fermarsi prima della linea del semaforo
-
+//TODO una volta oltrepassato il semaforo arancione la macchina va avanti lo stesso -> il semaforo rosso ha un limite
 
 /**
  * classe che gestisce la macchina e le sue posizioni
@@ -35,15 +35,15 @@ public class Macchina {
     //velocita di rallentamento
     private double rallentamentoX;
     private double rallentamentoY;
+//    private boolean oltrepassatoMappa = false;
 
 
-
-     /**
-     * @param posX      posizione iniziale della macchina X
-     * @param posY      posizione iniziale della macchina Y
-     * @param velocitaX velocita orizzontale
-     * @param velocitaY velocita verticale
-     * @param semaforo  semaforo condiviso
+    /**
+     * @param posX           posizione iniziale della macchina X
+     * @param posY           posizione iniziale della macchina Y
+     * @param velocitaX      velocita orizzontale
+     * @param velocitaY      velocita verticale
+     * @param semaforo       semaforo condiviso
      * @param rallentamentoX velocita di rallentamento orizzontale
      * @param rallentamentoY velocita di rallentamento verticale
      */
@@ -127,23 +127,8 @@ public class Macchina {
      * @param maxHeight altezza massima per la gestione dei limiti
      */
     public void aggiorna(double maxWidth, double maxHeight) {
-        if (semaforo.isGiallo()) {
-            isMove = true;
-            velocitaX = rallentamentoX;
-            velocitaY = rallentamentoY;
-        } else if (semaforo.isRosso()) {
-            isMove = false;
-            velocitaX = 0;
-            velocitaY = 0;
-        } else {
-            isMove = true;
-            velocitaY = velocitaYOriginale;
-            velocitaX = velocitaXOriginale;
-        }
-
         posX += velocitaX;
         posY += velocitaY;
-
         /*
 
         RIMBALZO PALLINA
@@ -168,8 +153,37 @@ public class Macchina {
         } else if (posX - WIDTH > maxWidth) { // bordo destro: esce a destra → riappare a sinistra
             posX = 0;
         }
+        if (semaforo.isGiallo()) {
+            isMove = true;
+            velocitaX = rallentamentoX;
+            velocitaY = rallentamentoY;
+        } else if (semaforo.isRosso()) {
+            if (hasSuperatoSemaforo()) {
+                isMove = true;
+                velocitaX = velocitaXOriginale;
+                velocitaY = velocitaYOriginale;
+            } else {
+                isMove = false;
+                velocitaX = 0;
+                velocitaY = 0;
+            }
+        } else {
+            isMove = true;
+            velocitaY = velocitaYOriginale;
+            velocitaX = velocitaXOriginale;
+        }
     }
 
+    private boolean hasSuperatoSemaforo() {
+//        if (oltrepassatoMappa) return false;
+        if (velocitaX < 0) {
+            return posX < semaforo.getPosX();
+        }
+        if (velocitaY < 0) {
+            return posY < semaforo.getPosY();
+        }
+        return false;
+    }
 
     /**
      * metodo che disegna la macchina

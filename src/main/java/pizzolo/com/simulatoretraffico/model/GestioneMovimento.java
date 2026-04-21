@@ -39,6 +39,24 @@ public class GestioneMovimento extends AnimationTimer {
             m.disegna(gc);
         }
     }
+/*
+    METODO PER CALCOLARE IL RALLENTAMENTO DELLA PALLINA CON LA FISICA
+
+    //distanza tra due punti = sqrt((xs- xm)^2  + (ys-ym)^2)
+
+    /**
+     * metodo che ritorna la distanza tra due punti
+     *
+     * @param m macchina per il calcolo della distanza
+     * @param s semaforo per il calcolo della distanza
+     * @return la distanza tra semaforo e macchina
+
+    private double distanzaPunti(Macchina m, Semaforo s) {
+        return Math.sqrt(Math.pow(s.getPosX() - m.getPosX(), 2) + Math.pow(s.getPosY() - m.getPosY(), 2));
+    }
+    //formula rallentamento = velocita (finale - iniziale)/ il tempo che ci mette a fermarsi dall'inizio del rallentamento
+  */
+
 
     public ArrayList<Semaforo> getSemafori() {
         return semafori;

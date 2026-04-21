@@ -12,6 +12,8 @@ import pizzolo.com.simulatoretraffico.model.GestioneMovimento;
 import pizzolo.com.simulatoretraffico.model.Macchina;
 import pizzolo.com.simulatoretraffico.model.Semaforo;
 
+import java.util.ArrayList;
+
 
 public class Controller {
     @FXML
