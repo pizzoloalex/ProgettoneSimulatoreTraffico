@@ -32,7 +32,10 @@ public class Macchina {
     //velocita di rallentamento
     private double rallentamentoX;
     private double rallentamentoY;
-//    private boolean oltrepassatoMappa = false;
+    //    private boolean oltrepassatoMappa = false;
+    //coordinate del angolo della curva
+    private double angoloBersaglioX;
+    private double angoloBersaglioY;
 
 
     /**
@@ -44,7 +47,7 @@ public class Macchina {
      * @param rallentamentoX velocita di rallentamento orizzontale
      * @param rallentamentoY velocita di rallentamento verticale
      */
-    public Macchina(double posX, double posY, double velocitaX, double velocitaY, Semaforo semaforo, double rallentamentoX, double rallentamentoY) {
+    public Macchina(double posX, double posY, double velocitaX, double velocitaY, Semaforo semaforo, double rallentamentoX, double rallentamentoY, double angoloBersaglioX, double angoloBersaglioY) {
         this.posX = posX;
         this.posY = posY;
         this.velocitaStandard = 10;
@@ -57,6 +60,9 @@ public class Macchina {
         //appena creata e in movimento
         this.isMove = true;
         this.semaforo = semaforo;
+        this.angoloBersaglioX = angoloBersaglioX;
+        this.angoloBersaglioY = angoloBersaglioY;
+
     }
 
     public double getVelocitaStandard() {
@@ -151,14 +157,27 @@ public class Macchina {
             posX = 0;
         }
 
+        gestioneCurve();
         gestioneSemaforo();
     }
 
+    /**
+     * metodo che gestisce lo stop and go della macchina con riferimento del semaforo
+     * ROSSO -> macchina prima del semaforo si ferma, gia superato il semaforo prima di rosso va avanti
+     * GIALLO -> prima del semaforo rallenta dopo riaccelera
+     * VERDE -> la macchina va avanti
+     */
     private void gestioneSemaforo() {
         if (semaforo.isGiallo()) {
-            isMove = true;
-            velocitaX = rallentamentoX;
-            velocitaY = rallentamentoY;
+            if (hasSuperatoSemaforo()) {
+                isMove = true;
+                velocitaX = velocitaXOriginale;
+                velocitaY = velocitaYOriginale;
+            } else {
+                isMove = true;
+                velocitaX = rallentamentoX;
+                velocitaY = rallentamentoY;
+            }
         } else if (semaforo.isRosso()) {
             if (hasSuperatoSemaforo()) {
                 isMove = true;
@@ -176,6 +195,11 @@ public class Macchina {
         }
     }
 
+    /**
+     * controlla la velocita della macchina quindi la direzione
+     *
+     * @return se la macchina ha gia superato il semaforo
+     */
     private boolean hasSuperatoSemaforo() {
 //        if (oltrepassatoMappa) return false;
         //si muove verso destra
@@ -187,6 +211,15 @@ public class Macchina {
             return posY < semaforo.getPosY();
         }
         return false;
+    }
+
+    private void gestioneCurve() {
+        //todo
+        /*
+        calcolare la distanza tra la macchina e la zona di curva (distanza tra due punti)
+        appena trovata la distanza controllare appena la macchina entra nella zona di curva
+        appena entra gestire angolazione di rotazione della macchina
+         */
     }
 
     /**
