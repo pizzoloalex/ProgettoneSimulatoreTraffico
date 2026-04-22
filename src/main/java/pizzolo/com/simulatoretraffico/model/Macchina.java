@@ -4,11 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
 //TODO aggiungere gestione di piu semafori e gestirli contemporaneamente
-//TODO controllare che la macchina si  fermi prima del semaforo e non dopo
 //TODO aggiungere lo sfondo , inizialmente una sola strada
-//TODO gestire il rallenatamento della macchina quando il semaforo sta per essere rosso
 //TODO gestire il rallentamento in modo tale che la macchina rallenti con velocita graduale e giusta coi da fermarsi prima della linea del semaforo
-//TODO una volta oltrepassato il semaforo arancione la macchina va avanti lo stesso -> il semaforo rosso ha un limite
 
 /**
  * classe che gestisce la macchina e le sue posizioni
@@ -153,6 +150,11 @@ public class Macchina {
         } else if (posX - WIDTH > maxWidth) { // bordo destro: esce a destra → riappare a sinistra
             posX = 0;
         }
+
+        gestioneSemaforo();
+    }
+
+    private void gestioneSemaforo() {
         if (semaforo.isGiallo()) {
             isMove = true;
             velocitaX = rallentamentoX;
@@ -176,7 +178,9 @@ public class Macchina {
 
     private boolean hasSuperatoSemaforo() {
 //        if (oltrepassatoMappa) return false;
+        //si muove verso destra
         if (velocitaX < 0) {
+            //controlla la posizione della macchine
             return posX < semaforo.getPosX();
         }
         if (velocitaY < 0) {

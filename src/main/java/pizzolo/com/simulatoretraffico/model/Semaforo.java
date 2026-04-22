@@ -79,7 +79,7 @@ public class Semaforo {
         Se il tempo specificato è maggiore della durata di questo Animation, questo metodo salterà alla fine.
         fa partire i colori sfasati
          */
-        if (!offset.equals(Duration.ZERO) && offset != null) {
+        if (!offset.equals(Duration.ZERO)) {
             timeline.jumpTo(offset);
         }
     }
